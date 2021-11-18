@@ -1,0 +1,79 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+
+
+{% block content %}
+    <form method="get">
+        {{ books.form.as_p }}
+        <input type="submit" value="Search" />
+    </form>
+    <form action="{% url 'bookadd' %}" align='right'>
+        <input type="submit" value="Add new book" style='height:60px; background-color:#04AA6D'>
+    </form>
+    <form action="{% url 'bookimport' %}" align='right'>
+        <input type="submit" value="Import from Google library" style='height:60px; background-color:#339DFF'>
+    </form>
+<table>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Date published
+            </th>
+            <th>
+                ISBN number
+            </th>
+            <th>
+                Link to cover
+            </th>
+            <th>
+                Language
+            </th>
+            <th>
+                Pages
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    {% for obj in books.qs %}
+        <tr>
+            <th>
+                {{ obj.title }}
+            </th>
+            <th>
+                {{ obj.author }}
+            </th>
+            <th>
+                {{ obj.date_published }}
+            </th>
+            <th>
+                {{ obj.ISBN_number }}
+            </th>
+            <th>
+                {%if obj.link_to_cover %}
+                    <a href="{{ obj.link_to_cover }}">{{ obj.title }}</a>
+                {% endif %}
+            </th>
+            <th>
+                {{ obj.language }}
+            </th>
+            <th>
+                {%if obj.page_number %}
+                    {{ obj.page_number }}
+                {% endif %}
+            </th>
+            <th>
+                <form action="{% url 'bookupdate' pk=obj.id %}">
+                    <input type="submit" value="Edit">
+                </form>
+            </th>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

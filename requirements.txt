@@ -1,0 +1,7 @@
+Django==3.2.9
+django-filter==21.1
+djangorestframework==3.12.4
+psycopg2-binary==2.9.2
+pytest==6.2.5
+pytest-django==4.4.0
+requests==2.26.0
